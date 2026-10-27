@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamesAndChat</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            background-color: #161b22;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 1px solid #30363d;
+        }
+        h1 { color: #58a6ff; margin: 0 0 10px; }
+        p { color: #8b949e; margin-bottom: 25px; line-height: 1.5; }
+        button {
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:focus-visible { outline: 2px solid #58a6ff; outline-offset: 3px; }
+        .google-btn { background-color: #238636; }
+        .google-btn:hover { background-color: #2ea043; }
+        #app-content { display: none; }
+        .logout-btn { background-color: #da3633; }
+        .logout-btn:hover { background-color: #f85149; }
+        #status-message { min-height: 1.5em; color: #f0883e; font-size: 14px; }
+        @media (max-width: 480px) { .login-card { padding: 28px 20px; } }
+    </style>
+</head>
+<body>
+    <main>
+        <section id="login-container" class="login-card" aria-labelledby="login-title">
+            <h1 id="login-title">GamesAndChat</h1>
+            <p>Inicia sesión con tu cuenta de Google para jugar y chatear:</p>
+            <button id="login-btn" class="google-btn" type="button">Iniciar sesión con Google</button>
+            <p id="status-message" role="status" aria-live="polite"></p>
+        </section>
+
+        <section id="app-content" class="login-card" aria-labelledby="welcome-title">
+            <h1 id="welcome-title">¡Bienvenido a GamesAndChat!</h1>
+            <div class="user-info">
+                <p>Conectado como: <span id="user-name" style="color:#58a6ff;font-weight:bold;"></span></p>
+            </div>
+            <button id="logout-btn" class="logout-btn" type="button">Cerrar sesión</button>
+            <p id="app-status" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Configuración del proyecto Firebase.
+        const firebaseConfig = {
+            apiKey: "AIzaSyBaoEt6RfwWqTbdnWLsRFnmUJe0GWyySXs",
+            authDomain: "gamesandchat-dca05.firebaseapp.com",
+            projectId: "gamesandchat-dca05",
+            storageBucket: "gamesandchat-dca05.firebasestorage.app",
+            messagingSenderId: "539539657773",
+            appId: "1:539539657773:web:9a9079f8859679ca1a14a4",
+            measurementId: "G-JRQ6WR3NS5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const loginContainer = document.getElementById("login-container");
+        const appContent = document.getElementById("app-content");
+        const loginBtn = document.getElementById("login-btn");
+        const logoutBtn = document.getElementById("logout-btn");
+        const userNameSpan = document.getElementById("user-name");
+        const statusMessage = document.getElementById("status-message");
+        const appStatus = document.getElementById("app-status");
+
+        loginBtn.addEventListener("click", async () => {
+            statusMessage.textContent = "";
+            loginBtn.disabled = true;
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Error al iniciar sesión:", error);
+                statusMessage.textContent = error.code === "auth/unauthorized-domain"
+                    ? "Este dominio no está autorizado en Firebase Authentication."
+                    : "No se pudo iniciar sesión. Revisa la configuración de Firebase e inténtalo de nuevo.";
+            } finally {
+                loginBtn.disabled = false;
+            }
+        });
+
+        logoutBtn.addEventListener("click", async () => {
+            appStatus.textContent = "";
+            logoutBtn.disabled = true;
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Error al cerrar sesión:", error);
+                appStatus.textContent = "No se pudo cerrar sesión. Inténtalo de nuevo.";
+            } finally {
+                logoutBtn.disabled = false;
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginContainer.style.display = "none";
+                appContent.style.display = "block";
+                userNameSpan.textContent = user.displayName || user.email || "Usuario";
+            } else {
+                loginContainer.style.display = "block";
+                appContent.style.display = "none";
+                userNameSpan.textContent = "";
+            }
+        });
+    </script>
+</body>
+</html>
