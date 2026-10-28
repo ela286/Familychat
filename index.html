@@ -1,277 +1,110 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080d18">
-<meta name="description" content="GamesAndChat: cuentas, archivos y comunidad.">
-<title>GamesAndChat — Tu espacio</title>
-<style>
-:root{color-scheme:dark;--bg:#080d18;--panel:#111a2d;--line:#263653;--text:#f2f5ff;--muted:#a7b2cc;--blue:#8ba5ff;--cyan:#54e0e6;--green:#5de0a4;--red:#ff8e9a}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(ellipse at 10% 10%,#4f56c52b,transparent 34rem),radial-gradient(ellipse at 90% 80%,#23bec420,transparent 32rem),var(--bg)}
-button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}button:disabled{opacity:.6;cursor:wait}
-.topbar{max-width:1120px;width:calc(100% - 36px);margin:auto;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{display:flex;align-items:center;gap:11px;font-size:20px;font-weight:850;letter-spacing:-.04em}.mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7893ff,#8b5cf6 55%,#4cdeea);font-size:22px}.pill{font-size:12px;color:#c4f9e4;background:#16362f;border:1px solid #2e765b;border-radius:99px;padding:8px 12px}
-main{width:min(1120px,calc(100% - 36px));margin:auto;padding:28px 0 64px}.hero{display:grid;grid-template-columns:1fr .9fr;gap:clamp(28px,6vw,76px);align-items:center;margin:12px 0 36px}.eyebrow{color:#aebcff;text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:12px;margin-bottom:18px}h1{font-size:clamp(42px,6vw,68px);letter-spacing:-.065em;line-height:1.03;margin:0 0 20px}h1 span{background:linear-gradient(95deg,#8ba5ff,#54e0e6);background-clip:text;color:transparent}.intro{font-size:16px;color:var(--muted);line-height:1.75;margin:0;max-width:550px}
-.card{padding:clamp(22px,4vw,34px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#18223af5,#0c1220f5);box-shadow:0 24px 80px #0004}.card-icon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#7893ff20;border:1px solid #7893ff44;font-size:25px;margin-bottom:18px}h2{font-size:23px;letter-spacing:-.035em;margin:0 0 9px}.muted{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 20px}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;background:#080e1b;border-radius:12px;margin:20px 0}.tab{border:0;border-radius:9px;background:transparent;color:var(--muted);padding:10px;font-weight:750}.tab.active{background:#263654;color:white}
-label{display:block;font-size:13px;color:#dce3f8;font-weight:700;margin:13px 0 7px}.field{width:100%;padding:13px 14px;border-radius:11px;background:#080e1b;border:1px solid #34415f;color:var(--text)}.primary,.secondary,.danger{border:0;border-radius:11px;padding:12px 15px;font-weight:800}.primary{color:#08101b;background:linear-gradient(100deg,#9cb0ff,#62e2e8)}.secondary{color:#f2f5ff;background:#26324d;border:1px solid var(--line)}.danger{color:#ffdce0;background:#4b202b;border:1px solid #71313e}.full{width:100%;margin-top:18px}.message{font-size:13px;line-height:1.55;min-height:18px;margin:12px 0 0;color:#ffbd8a;overflow-wrap:anywhere}.message.good{color:var(--green)}.small{font-size:12px;color:#8491ad;line-height:1.6;margin:13px 0 0}
-.hidden{display:none!important}.dashboard-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:30px 0 18px}.dashboard-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.section-title{font-size:26px;margin:30px 0 14px}.upload-card{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end}.upload-card label{margin-top:0}.upload-card .primary{min-height:44px}.file-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.file-card{border:1px solid var(--line);background:#ffffff06;border-radius:16px;padding:16px;min-width:0}.file-top{display:flex;align-items:flex-start;gap:12px}.file-icon{font-size:26px}.file-info{min-width:0;flex:1}.file-name{font-weight:800;overflow-wrap:anywhere}.file-meta{font-size:12px;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.shared{display:inline-block;color:#b7f6da;background:#153b30;border:1px solid #28634e;border-radius:99px;padding:4px 8px;font-size:10px;margin-top:8px}.private{display:inline-block;color:#d0d8ef;background:#202a40;border:1px solid #36435f;border-radius:99px;padding:4px 8px;font-size:10px;margin-top:8px}.file-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.file-actions button{font-size:12px;padding:9px 11px}.empty{padding:25px;text-align:center;border:1px dashed #34415f;border-radius:15px;color:var(--muted);grid-column:1/-1}.note{padding:13px 15px;border:1px solid #4cdeea24;background:#4cdeea0b;color:#b8dce6;border-radius:13px;font-size:12px;line-height:1.6;margin-top:16px}footer{max-width:1120px;width:calc(100% - 36px);margin:auto;border-top:1px solid #9aaed21f;padding:20px 0 25px;color:#76829c;font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:780px){.hero{grid-template-columns:1fr;gap:25px}.file-list{grid-template-columns:1fr}.upload-card{grid-template-columns:1fr}.topbar{align-items:flex-start}h1{font-size:clamp(42px,12vw,60px)}main{padding-top:15px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="FamilyChat: mensajes y grupos privados para tu familia y amigos.">
+  <title>FamilyChat</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><div class="mark" aria-hidden="true">🎮</div><div>Games<span style="color:#8ba5ff">And</span>Chat</div></div>
-  <div class="pill">● Tu espacio gamer</div>
-</header>
-<main>
-  <section id="auth-screen" class="hero">
-    <div><div class="eyebrow">Juega · Guarda · Comparte</div><h1>Tu espacio.<br><span>Tus archivos.</span></h1><p class="intro">Crea una cuenta con tu correo y contraseña. Guarda archivos en la nube y elige cuáles quieres compartir con otros usuarios de GamesAndChat.</p></div>
-    <section class="card" aria-labelledby="auth-title">
-      <div class="card-icon" aria-hidden="true">✦</div><h2 id="auth-title">Bienvenido a GamesAndChat</h2><p class="muted">No necesitas una cuenta de Google.</p>
-      <div class="tabs"><button id="tab-login" class="tab active" type="button">Iniciar sesión</button><button id="tab-signup" class="tab" type="button">Crear cuenta</button></div>
-      <form id="auth-form">
-        <div id="username-wrap" class="hidden"><label for="username">Nombre de usuario</label><input class="field" id="username" maxlength="30" autocomplete="nickname" placeholder="Tu apodo"></div>
-        <label for="email">Correo electrónico</label><input class="field" id="email" type="email" autocomplete="email" required maxlength="254" placeholder="tu@correo.com">
-        <label for="password">Contraseña</label><input class="field" id="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Mínimo 8 caracteres">
-        <button id="auth-submit" class="primary full" type="submit">Iniciar sesión</button>
-      </form>
-      <p id="auth-message" class="message" role="status" aria-live="polite"></p>
-      <p class="small">Usa una contraseña única. Si la confirmación de correo está activa en Supabase, revisa tu bandeja de entrada después de registrarte.</p>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="FamilyChat inicio"><span class="logo">♡</span><span>Family<span class="accent">Chat</span></span></a>
+    <button id="install-btn" class="button secondary hidden" type="button">Instalar app</button>
+  </header>
+
+  <main>
+    <section id="auth-screen" class="auth-layout">
+      <div class="hero">
+        <p class="eyebrow">TU FAMILIA, SIEMPRE CONECTADA</p>
+        <h1>Tu gente.<br><span class="gradient">Tu espacio privado.</span></h1>
+        <p class="intro">Habla con las personas que eliges, crea grupos y comparte momentos desde tu teléfono o computadora.</p>
+        <div class="feature-pills"><span>🔒 Chats privados</span><span>👥 Grupos</span><span>📱 Instalable</span></div>
+      </div>
+      <section class="panel auth-panel">
+        <div class="panel-icon">💜</div>
+        <h2 id="auth-heading">Bienvenido a FamilyChat</h2>
+        <p class="muted">Necesitas la clave de invitación para entrar.</p>
+        <div class="tabs"><button id="login-tab" class="tab active" type="button">Iniciar sesión</button><button id="signup-tab" class="tab" type="button">Crear cuenta</button></div>
+        <form id="auth-form">
+          <div id="username-wrap" class="hidden"><label for="username">Nombre que verán los demás</label><input id="username" class="field" maxlength="30" autocomplete="nickname" placeholder="Tu nombre"></div>
+          <label for="email">Correo electrónico</label><input id="email" class="field" type="email" autocomplete="email" maxlength="254" required placeholder="tu@correo.com">
+          <label for="password">Contraseña</label><input id="password" class="field" type="password" autocomplete="current-password" minlength="8" maxlength="128" required placeholder="Mínimo 8 caracteres">
+          <div id="invite-wrap" class="hidden"><label for="invite-code">Clave de invitación</label><input id="invite-code" class="field" type="password" autocomplete="off" placeholder="Introduce la clave"></div>
+          <button id="auth-submit" class="button primary full" type="submit">Iniciar sesión</button>
+        </form>
+        <p id="auth-message" class="status" role="status" aria-live="polite"></p>
+        <p class="fineprint">Usa una contraseña única. Los chats requieren configuración de las políticas de privacidad en Supabase antes de usar datos reales.</p>
+      </section>
     </section>
-  </section>
 
-  <section id="app-screen" class="hidden">
-    <div class="dashboard-head"><div><div class="eyebrow">Tu biblioteca</div><h2 id="hello-title">Tus archivos</h2><p id="user-email"></p></div><button id="logout-btn" class="secondary" type="button">Cerrar sesión</button></div>
-    <section class="card">
-      <h2>Subir un archivo</h2><p class="muted">Guarda imágenes, documentos, vídeos u otros archivos. Límite recomendado por archivo: 25 MB para este ejemplo.</p>
-      <form id="upload-form" class="upload-card">
-        <div><label for="file-input">Selecciona un archivo</label><input id="file-input" class="field" type="file" required><label style="display:flex;gap:9px;align-items:center;font-weight:500"><input id="share-on-upload" type="checkbox"> Compartir con usuarios registrados</label></div>
-        <button id="upload-btn" class="primary" type="submit">Subir archivo</button>
-      </form>
-      <p id="upload-message" class="message" role="status" aria-live="polite"></p>
+    <section id="app-screen" class="app-layout hidden">
+      <aside class="sidebar panel">
+        <div class="profile-summary">
+          <img id="my-avatar" class="avatar big" alt="Tu foto de perfil" src="./icons/icon.svg">
+          <div class="grow"><strong id="my-name">Mi perfil</strong><small id="my-email"></small></div>
+          <button id="profile-btn" class="icon-button" type="button" title="Editar perfil">⚙</button>
+        </div>
+        <button id="new-chat-btn" class="button primary full" type="button">＋ Nuevo chat</button>
+        <button id="new-group-btn" class="button secondary full" type="button">＋ Crear grupo</button>
+        <label class="search-label" for="conversation-search">Tus conversaciones</label>
+        <input id="conversation-search" class="field" placeholder="Buscar chat o grupo…">
+        <div id="conversation-list" class="conversation-list"><p class="muted pad">Cargando conversaciones…</p></div>
+        <button id="logout-btn" class="button ghost full" type="button">Cerrar sesión</button>
+      </aside>
+
+      <section class="chat-panel panel">
+        <div id="welcome-view" class="welcome-view">
+          <div class="welcome-mark">♡</div><h2>Bienvenido a FamilyChat</h2>
+          <p class="muted">Elige una conversación o crea un chat privado con alguien de tus contactos.</p>
+          <button id="welcome-new-chat" class="button primary" type="button">Empezar un chat</button>
+        </div>
+        <div id="conversation-view" class="conversation-view hidden">
+          <header class="chat-header">
+            <div class="chat-person"><img id="chat-avatar" class="avatar" src="./icons/icon.svg" alt=""><div><h2 id="chat-title">Chat</h2><p id="chat-subtitle" class="muted small-line"></p></div></div>
+            <div class="header-actions"><button id="refresh-chat-btn" class="icon-button" title="Actualizar mensajes" type="button">↻</button></div>
+          </header>
+          <div id="messages" class="messages"><p class="muted">Selecciona una conversación.</p></div>
+          <form id="message-form" class="composer"><input id="message-input" class="field" maxlength="4000" autocomplete="off" placeholder="Escribe un mensaje…" required><button id="send-btn" class="button primary" type="submit">Enviar</button></form>
+          <p id="chat-message" class="status compact" role="status"></p>
+        </div>
+      </section>
     </section>
-    <h2 class="section-title">Mis archivos</h2><div id="my-files" class="file-list"><div class="empty">Cargando archivos…</div></div>
-    <h2 class="section-title">Compartidos por la comunidad</h2><div id="shared-files" class="file-list"><div class="empty">Cargando archivos…</div></div>
-    <div class="note"><strong>Cómo funciona compartir:</strong> si marcas un archivo como compartido, los demás usuarios autenticados de esta aplicación podrán verlo y descargarlo. Los archivos privados solo los ve su propietario. No subas contraseñas, documentos sensibles ni archivos que no quieras compartir.</div>
-  </section>
-</main>
-<footer><span>© <span id="year"></span> GamesAndChat</span><span>Almacenamiento en la nube con Supabase</span></footer>
-<script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+  </main>
 
-/*
-  CONFIGURACIÓN:
-  1. Crea un proyecto en https://supabase.com/
-  2. En Project Settings → API copia Project URL y la publishable key (o anon key).
-  3. Pega esos valores abajo. Nunca uses la service_role/secret key en el navegador.
-*/
-const SUPABASE_URL = 'https://yrxtarhmiwxdpexdekpz.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_Jxy85fbMXX_-klpiH5KKKw_VcUTjV2b';
-const MAX_FILE_BYTES = 25 * 1024 * 1024;
-const BUCKET = 'gac-files';
+  <dialog id="contacts-dialog" class="dialog">
+    <form method="dialog" class="dialog-top"><div><p class="eyebrow">NUEVA CONVERSACIÓN</p><h2>¿Con quién quieres hablar?</h2></div><button class="icon-button" aria-label="Cerrar" value="cancel">✕</button></form>
+    <p class="muted">Busca por nombre o correo. Solo podrás abrir chats con cuentas que hayan aceptado la invitación.</p>
+    <input id="contact-search" class="field" placeholder="Buscar persona…">
+    <div id="contacts-list" class="contacts-list"></div>
+    <p id="contacts-message" class="status"></p>
+  </dialog>
 
-const $ = id => document.getElementById(id);
-$('year').textContent = new Date().getFullYear();
-let supabase = null;
-let currentUser = null;
-let signupMode = false;
-let fileRows = [];
+  <dialog id="group-dialog" class="dialog">
+    <form id="group-form">
+      <div class="dialog-top"><div><p class="eyebrow">TU CÍRCULO</p><h2>Crear grupo</h2></div><button id="close-group" class="icon-button" type="button">✕</button></div>
+      <label for="group-name">Nombre del grupo</label><input id="group-name" class="field" maxlength="60" required placeholder="Familia, Amigos…">
+      <label for="group-search">Añadir participantes</label><input id="group-search" class="field" placeholder="Filtrar contactos…">
+      <div id="group-members" class="contacts-list selectable"></div>
+      <p id="group-message" class="status"></p>
+      <button id="create-group-btn" class="button primary full" type="submit">Crear grupo</button>
+    </form>
+  </dialog>
 
-function setMessage(id, message, good=false) {
-  const el = $(id); el.textContent = message; el.classList.toggle('good', good);
-}
-function escapeHtml(value) {
-  return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function readableSize(bytes) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024*1024) return `${(bytes/1024).toFixed(1)} KB`;
-  return `${(bytes/(1024*1024)).toFixed(1)} MB`;
-}
-function fileIcon(name) {
-  const ext = name.split('.').pop().toLowerCase();
-  if (['png','jpg','jpeg','gif','webp','svg'].includes(ext)) return '🖼️';
-  if (['mp4','mov','webm','mkv'].includes(ext)) return '🎬';
-  if (['mp3','wav','ogg'].includes(ext)) return '🎵';
-  if (['pdf'].includes(ext)) return '📕';
-  if (['zip','rar','7z'].includes(ext)) return '🗜️';
-  return '📄';
-}
-function safeFilename(name) {
-  return name.normalize('NFKC').replace(/[^\w.\- ()]/g, '_').replace(/\s+/g, '_').slice(0,120) || 'archivo';
-}
-function renderFileCard(row, own) {
-  const sharedBadge = row.is_shared ? '<span class="shared">Compartido</span>' : '<span class="private">Privado</span>';
-  const actions = own
-    ? `<button class="secondary" data-action="toggle" data-id="${escapeHtml(row.id)}" type="button">${row.is_shared ? 'Dejar privado' : 'Compartir'}</button>
-       <button class="secondary" data-action="download" data-id="${escapeHtml(row.id)}" type="button">Descargar</button>
-       <button class="danger" data-action="delete" data-id="${escapeHtml(row.id)}" type="button">Eliminar</button>`
-    : `<button class="secondary" data-action="download" data-id="${escapeHtml(row.id)}" type="button">Descargar</button>`;
-  return `<article class="file-card"><div class="file-top"><div class="file-icon">${fileIcon(row.file_name)}</div><div class="file-info"><div class="file-name">${escapeHtml(row.file_name)}</div><div class="file-meta">${readableSize(Number(row.size_bytes)||0)} · ${new Date(row.created_at).toLocaleDateString()}</div>${sharedBadge}${own ? '' : `<div class="file-meta">Compartido por ${escapeHtml(row.owner_name || 'Usuario')}</div>`}</div></div><div class="file-actions">${actions}</div></article>`;
-}
-function renderFiles() {
-  const mine = fileRows.filter(r => r.owner_id === currentUser.id);
-  const shared = fileRows.filter(r => r.owner_id !== currentUser.id && r.is_shared);
-  $('my-files').innerHTML = mine.length ? mine.map(r => renderFileCard(r,true)).join('') : '<div class="empty">Todavía no has subido archivos.</div>';
-  $('shared-files').innerHTML = shared.length ? shared.map(r => renderFileCard(r,false)).join('') : '<div class="empty">Todavía no hay archivos compartidos por otros usuarios.</div>';
-}
-async function loadFiles() {
-  $('my-files').innerHTML = '<div class="empty">Cargando…</div>';
-  $('shared-files').innerHTML = '<div class="empty">Cargando…</div>';
-  // RLS returns only owned rows and rows marked as shared.
-  const { data, error } = await supabase.from('files').select('id,owner_id,owner_name,file_name,storage_path,size_bytes,mime_type,is_shared,created_at').order('created_at',{ascending:false});
-  if (error) {
-    console.error(error);
-    $('my-files').innerHTML = '<div class="empty">No se pudieron cargar los archivos. Comprueba que ejecutaste el SQL de configuración.</div>';
-    $('shared-files').innerHTML = '';
-    return;
-  }
-  fileRows = data || [];
-  renderFiles();
-}
-async function setScreen(user) {
-  currentUser = user;
-  $('auth-screen').classList.toggle('hidden', !!user);
-  $('app-screen').classList.toggle('hidden', !user);
-  if (!user) return;
-  const { data: profile } = await supabase.from('profiles').select('username').eq('id',user.id).maybeSingle();
-  const username = profile?.username || user.user_metadata?.username || user.email?.split('@')[0] || 'Jugador';
-  $('hello-title').textContent = `¡Hola, ${username}!`;
-  $('user-email').textContent = user.email || '';
-  await loadFiles();
-}
-function setAuthMode(signup) {
-  signupMode = signup;
-  $('tab-login').classList.toggle('active',!signup);
-  $('tab-signup').classList.toggle('active',signup);
-  $('username-wrap').classList.toggle('hidden',!signup);
-  $('password').autocomplete = signup ? 'new-password' : 'current-password';
-  $('password').minLength = signup ? 8 : 1;
-  $('auth-submit').textContent = signup ? 'Crear cuenta' : 'Iniciar sesión';
-  setMessage('auth-message','');
-}
-$('tab-login').addEventListener('click',()=>setAuthMode(false));
-$('tab-signup').addEventListener('click',()=>setAuthMode(true));
+  <dialog id="profile-dialog" class="dialog">
+    <form id="profile-form">
+      <div class="dialog-top"><div><p class="eyebrow">TU CUENTA</p><h2>Mi perfil</h2></div><button id="close-profile" class="icon-button" type="button">✕</button></div>
+      <div class="profile-edit"><img id="profile-preview" class="avatar huge" src="./icons/icon.svg" alt="Vista previa de foto"><div><label for="avatar-file">Foto de perfil</label><input id="avatar-file" class="field" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><p class="muted">Imagen de hasta 3 MB.</p></div></div>
+      <label for="profile-name">Nombre</label><input id="profile-name" class="field" maxlength="30" required>
+      <p id="profile-message" class="status"></p>
+      <button class="button primary full" type="submit">Guardar cambios</button>
+    </form>
+  </dialog>
 
-function showSetupError() {
-  $('auth-screen').classList.remove('hidden');
-  $('app-screen').classList.add('hidden');
-  $('auth-submit').disabled = true;
-  setMessage('auth-message','Falta configurar Supabase. Abre index.html y reemplaza SUPABASE_URL y SUPABASE_ANON_KEY con los datos de tu proyecto.');
-}
-if (SUPABASE_URL.startsWith('PEGA_AQUI') || SUPABASE_ANON_KEY.startsWith('PEGA_AQUI')) {
-  showSetupError();
-} else {
-  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  supabase.auth.onAuthStateChange((_event,session) => {
-    // Defer DB work to avoid doing additional Supabase calls inside auth callback.
-    queueMicrotask(() => setScreen(session?.user || null));
-  });
-
-  $('auth-form').addEventListener('submit', async event => {
-    event.preventDefault();
-    const email = $('email').value.trim();
-    const password = $('password').value;
-    const button = $('auth-submit');
-    button.disabled = true;
-    setMessage('auth-message',signupMode ? 'Creando cuenta…' : 'Iniciando sesión…');
-    try {
-      if (signupMode) {
-        const username = $('username').value.trim();
-        if (username.length < 2) throw new Error('El nombre de usuario debe tener al menos 2 caracteres.');
-        const {data,error} = await supabase.auth.signUp({
-          email,password,
-          options:{data:{username},emailRedirectTo:location.origin + location.pathname}
-        });
-        if (error) throw error;
-        if (!data.session) {
-          setMessage('auth-message','Cuenta creada. Revisa tu correo para confirmar la dirección y después inicia sesión.',true);
-        } else {
-          setMessage('auth-message','¡Cuenta creada!',true);
-        }
-      } else {
-        const {error} = await supabase.auth.signInWithPassword({email,password});
-        if (error) throw error;
-      }
-    } catch(error) {
-      console.error(error);
-      setMessage('auth-message',error.message || 'No se pudo completar la operación.');
-    } finally {
-      button.disabled = false;
-    }
-  });
-
-  $('logout-btn').addEventListener('click',async()=>{
-    $('logout-btn').disabled = true;
-    const {error} = await supabase.auth.signOut();
-    if(error) alert('No se pudo cerrar sesión: '+error.message);
-    $('logout-btn').disabled = false;
-  });
-
-  $('upload-form').addEventListener('submit',async event=>{
-    event.preventDefault();
-    const file = $('file-input').files?.[0];
-    if(!file || !currentUser) return;
-    if(file.size > MAX_FILE_BYTES) { setMessage('upload-message','El archivo supera el límite de 25 MB.'); return; }
-    const button = $('upload-btn'); button.disabled = true;
-    setMessage('upload-message','Subiendo archivo…');
-    const path = `${currentUser.id}/${crypto.randomUUID()}-${safeFilename(file.name)}`;
-    try {
-      const {error:storageError} = await supabase.storage.from(BUCKET).upload(path,file,{contentType:file.type || 'application/octet-stream',upsert:false});
-      if(storageError) throw storageError;
-      const {error:dbError} = await supabase.from('files').insert({
-        owner_id:currentUser.id,
-        owner_name:$('hello-title').textContent.replace(/^¡Hola, |!$/g,''),
-        file_name:file.name,
-        storage_path:path,
-        size_bytes:file.size,
-        mime_type:file.type || 'application/octet-stream',
-        is_shared:$('share-on-upload').checked
-      });
-      if(dbError) {
-        await supabase.storage.from(BUCKET).remove([path]);
-        throw dbError;
-      }
-      $('file-input').value = '';
-      $('share-on-upload').checked = false;
-      setMessage('upload-message','Archivo guardado correctamente.',true);
-      await loadFiles();
-    } catch(error) {
-      console.error(error);
-      setMessage('upload-message',error.message || 'No se pudo subir el archivo. Revisa el bucket y las políticas SQL.');
-    } finally { button.disabled = false; }
-  });
-
-  document.addEventListener('click',async event=>{
-    const button = event.target.closest('button[data-action]');
-    if(!button || !currentUser) return;
-    const row = fileRows.find(r=>r.id===button.dataset.id);
-    if(!row) return;
-    button.disabled = true;
-    try {
-      if(button.dataset.action==='toggle') {
-        const {error} = await supabase.from('files').update({is_shared:!row.is_shared}).eq('id',row.id).eq('owner_id',currentUser.id);
-        if(error) throw error;
-        await loadFiles();
-      } else if(button.dataset.action==='download') {
-        const {data,error} = await supabase.storage.from(BUCKET).createSignedUrl(row.storage_path,60);
-        if(error) throw error;
-        const a = document.createElement('a'); a.href=data.signedUrl; a.target='_blank'; a.rel='noopener noreferrer'; a.download=row.file_name; a.click();
-      } else if(button.dataset.action==='delete') {
-        if(!confirm(`¿Eliminar "${row.file_name}" permanentemente?`)) return;
-        const {error:storageError} = await supabase.storage.from(BUCKET).remove([row.storage_path]);
-        if(storageError) throw storageError;
-        const {error:dbError} = await supabase.from('files').delete().eq('id',row.id).eq('owner_id',currentUser.id);
-        if(dbError) throw dbError;
-        await loadFiles();
-      }
-    } catch(error) {
-      console.error(error);
-      alert('No se pudo completar la acción: '+(error.message || 'error desconocido'));
-    } finally { button.disabled = false; }
-  });
-}
-</script>
+  <footer><span>FamilyChat · Tu familia, siempre conectada</span><span>Versión inicial · Web instalable</span></footer>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

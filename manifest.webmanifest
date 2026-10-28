@@ -1,0 +1,19 @@
+{
+  "name": "FamilyChat",
+  "short_name": "FamilyChat",
+  "description": "Mensajes y grupos privados para tu familia y amigos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070b16",
+  "theme_color": "#080d18",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
